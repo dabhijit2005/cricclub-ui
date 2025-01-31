@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "876144195855",
+    "project_id": "api-project-876144195855",
+    "storage_bucket": "api-project-876144195855.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876144195855:android:f46a64a2db6a86a61de67a",
+        "android_client_info": {
+          "package_name": "com.cricclub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "876144195855-3o7a29in0hk90vk4dus9j388hsdhg37d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cricclub",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "876144195855-5ngfmn1oifsgol8734h1v93g0p0rg59a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIDEwNAAZCmlpg_FXTTu1UHBf7hmSzxco"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "876144195855-5ngfmn1oifsgol8734h1v93g0p0rg59a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "876144195855-blmpu6nv8ihl9v99cf3gj22rko6s29vm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cricclub"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
