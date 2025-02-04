@@ -1,12 +1,14 @@
 import { useEffect } from "react";
-//import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useState } from "react";
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import axios from "axios";
 
 const AuthContext = createContext({});
 
 const AuthProvider = ({ children, ...props } : any) => {
     const [token, setToken] = useState<{ [key: string]: any } | null>(null);
+    const [error, setError] = useState('');
     useEffect(() => {
         const token : any = '';//AsyncStorage.getItem('authToken');
         if (token) {
@@ -28,16 +30,21 @@ const AuthProvider = ({ children, ...props } : any) => {
 
     const login = async () => {
         try {
-            console.log('Sign in with Google');
-            await GoogleSignin.hasPlayServices();
-            const response = await GoogleSignin.signIn();
-            console.log("Google signIn == ",JSON.stringify(response));
+            GoogleSignin.hasPlayServices();
+                const response = await GoogleSignin.signIn();
+                const {data} : any = response;
 
-            const {data} : any = response;
-            //await AsyncStorage.setItem('authToken', data.idToken);
-
-            setToken(data.idToken);
-            console.log('user', data.user);
+                console.log("Google signIn == ",JSON.stringify(data));
+                const email = data.user.email;
+                axios
+                    .get(`http://localhost:8080/validateEmail?email=${email}`)
+                    .then((res) => {
+                        setToken(data.idToken);
+                        AsyncStorage.setItem('authToken', data.idToken);
+                        console.log('user', data.user);
+                    })
+                    .catch((err) => setError(err));   
+                
         } catch (error) {
             console.error(error);
         }
@@ -48,14 +55,15 @@ const AuthProvider = ({ children, ...props } : any) => {
                     setToken(null);
                   await GoogleSignin.revokeAccess();
                   await GoogleSignin.signOut();
-                  //await AsyncStorage.removeItem('authToken'); 
+                  setError('');
+                  await AsyncStorage.removeItem('authToken'); 
               } catch (error) {
                   console.error(error);
               }
           };
 
     return (
-        <AuthContext.Provider {...props} value={{ token, setToken, logout, login }}>
+        <AuthContext.Provider {...props} value={{ token, setToken, logout, login, error }}>
             {children}
         </AuthContext.Provider>
     );

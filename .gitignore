@@ -72,3 +72,7 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+.env
+android/app/client_secret_876144195855-5ngfmn1oifsgol8734h1v93g0p0rg59a.apps.googleusercontent.com.json
+android/app/google-services.json

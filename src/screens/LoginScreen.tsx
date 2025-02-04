@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { View, Text, Button, SafeAreaView, Image } from 'react-native'
+import { View, TextInput, Button, SafeAreaView, Image, Text } from 'react-native'
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { AuthContext } from '../auth/AuthContext';
 
@@ -11,7 +11,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 
 const SignInScreen = (  ) => {
-    const {token, setToken, login} : any = useContext(AuthContext);
+    const {token, setToken, login, error} : any = useContext(AuthContext);
     const navigation = useNavigation();
     useEffect(() => {
         GoogleSignin.configure({
@@ -23,20 +23,24 @@ const SignInScreen = (  ) => {
         
     }, []);
 
-    const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);    
+    const [email, setEmail] = useState('');
+    const [loading, setLoading] = useState(false);
 
+    function renderError() : any {
+        if (error) {
+            console.log('error', error);
+            return <View><Text style={{color: 'red'}}>Email not registered. Please check with Administrator.</Text></View>
+        }
+    };
 
     return (
         <SafeAreaView>
-            <View style={{marginTop:30, alignItems: 'center'}}>
-                
-            </View>
-            <View style={{marginTop: 20, alignItems: 'center'}}>
+            {renderError()}
+            <View style={{marginTop: 20, alignItems: 'center' }}>
                 <View style={{marginTop: 20, alignItems: 'center'}}>
                     <Button title="Sign in with Google" onPress={login} />
                 </View>
-            </View>            
+            </View>   
         </SafeAreaView>
     )
 }
